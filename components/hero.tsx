@@ -8,9 +8,9 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 
 const images = [
-  "https://sjc.microlink.io/IxKZQsArwLOVppCk0x69IuYF3TPEaVU80O96i4R1UzuB-ZuuNz-qn9ssTHx6Pb8XY-Yj3QWLgpPCc_ctgPM4gw.jpeg",
-  "/images/dance1.jpg",
-  "/images/dance2.jpg",
+  "/images/image9.jpg",
+  "/images/image4.png",
+  "/images/image_9x16.png",
 ];
 
 export default function HomePage() {

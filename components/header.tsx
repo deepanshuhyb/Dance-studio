@@ -45,9 +45,9 @@ export default function Header() {
             alt="Big Dance Centre Logo"
             width={40}
             height={40}
-            className="h-8 w-auto"
+            className="h-12 w-40"
           />
-          <span className="text-lg font-bold md:text-xl">BIG DANCE CENTRE</span>
+          {/* <span className="text-lg font-bold md:text-xl">Nrityoddha</span> */}
         </Link>
         <nav className="hidden md:block">
           <ul className="flex space-x-4">
