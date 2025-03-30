@@ -10,7 +10,8 @@ import { useState, useEffect } from "react";
 const images = [
   "/images/image9.jpg",
   "/images/image4.png",
-  "/images/image_9x16.png",
+  "/images/image10.png",
+  "/images/image5.jpg",
 ];
 
 export default function HomePage() {

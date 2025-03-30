@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   description:
     "Premier dance studio offering classes, workshops and performances",
   generator: "v0.dev",
+  icons: {
+    icon: "/logo.svg",
+  },
 };
 
 export default function RootLayout({

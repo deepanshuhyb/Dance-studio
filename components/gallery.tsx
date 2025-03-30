@@ -1,75 +1,66 @@
+// app/components/gallery.tsx
+
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Card, CardContent } from "@/components/ui/card";
 
-const images = [
-  "/placeholder.svg?height=400&width=600",
-  "/placeholder.svg?height=400&width=600",
-  "/placeholder.svg?height=400&width=600",
-  "/placeholder.svg?height=400&width=600",
-  "/placeholder.svg?height=400&width=600",
-  "/placeholder.svg?height=400&width=600",
+const galleryItems = [
+  { type: "image", src: "/placeholder.svg", alt: "Dance Performance 1" },
+  { type: "image", src: "/placeholder.svg", alt: "Dance Performance 2" },
+  { type: "image", src: "/placeholder.svg", alt: "Dance Performance 3" },
+  { type: "video", src: "/placeholder.mp4", alt: "Dance Workshop 1" },
+  { type: "image", src: "/placeholder.svg", alt: "Dance Performance 4" },
+  { type: "video", src: "/placeholder.mp4", alt: "Dance Workshop 2" },
 ];
 
 export default function Gallery() {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
   return (
-    <section id="gallery" className="bg-gray-50 py-12 sm:py-16 md:py-20">
-      <div className="container px-4">
+    <section id="gallery" className="py-12 sm:py-16 md:py-20 bg-white">
+      <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center"
+          className="text-center mb-8"
         >
-          <h2 className="text-2xl font-bold sm:text-3xl md:text-4xl">
-            Gallery
-          </h2>
-          <p className="mt-4 text-base text-gray-600 sm:text-lg">
-            Moments captured in motion
+          <h2 className="text-3xl font-bold sm:text-4xl">Gallery</h2>
+          <p className="mt-4 text-gray-600 text-lg">
+            A glimpse into our performances and workshops
           </p>
         </motion.div>
-        <div className="mt-8 grid gap-4 sm:mt-12 sm:grid-cols-2 md:grid-cols-3">
-          {images.map((image, index) => (
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {galleryItems.map((item, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              whileHover={{ scale: 1.05 }}
-              className="cursor-pointer overflow-hidden rounded-lg"
-              onClick={() => setSelectedImage(image)}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
             >
-              <img
-                src={image || "/placeholder.svg"}
-                alt={`Gallery image ${index + 1}`}
-                className="h-48 w-full object-cover transition-transform hover:scale-110 sm:h-64"
-              />
+              <Card className="overflow-hidden transition-transform hover:scale-105 rounded-xl shadow-md">
+                <CardContent>
+                  {item.type === "image" ? (
+                    <img
+                      src={item.src}
+                      alt={item.alt}
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                  ) : (
+                    <video
+                      src={item.src}
+                      controls
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                  )}
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </div>
       </div>
-      <Dialog
-        open={!!selectedImage}
-        onOpenChange={() => setSelectedImage(null)}
-      >
-        <DialogContent className="max-w-md p-4 sm:max-w-lg">
-          <div className="flex justify-center">
-            {selectedImage && (
-              <img
-                src={selectedImage || "/placeholder.svg"}
-                alt="Selected gallery image"
-                className="max-h-[60vh] w-auto rounded-lg"
-              />
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
     </section>
   );
 }

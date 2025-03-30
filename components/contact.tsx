@@ -1,128 +1,116 @@
-"use client"
+// app/components/contact.tsx
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { useToast } from "@/components/ui/use-toast"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+"use client";
 
-const formSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-})
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 export default function Contact() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const { toast } = useToast()
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      message: "",
-    },
-  })
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsSubmitting(true)
-    try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-      toast({
-        title: "Message sent!",
-        description: "We'll get back to you soon.",
-      })
-      form.reset()
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Something went wrong. Please try again.",
-        variant: "destructive",
-      })
-    }
-    setIsSubmitting(false)
-  }
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle form submission (API call or other action)
+    console.log(formData);
+    alert("Message Sent Successfully!");
+    setFormData({ name: "", email: "", message: "" });
+  };
 
   return (
-    <section id="contact" className="bg-gray-50 py-12 sm:py-16 md:py-20">
-      <div className="container px-4">
+    <section className="bg-white py-20 px-4">
+      <div className="container mx-auto max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center"
+          className="text-center mb-12"
         >
-          <h2 className="text-2xl font-bold sm:text-3xl md:text-4xl">Contact Us</h2>
-          <p className="mt-4 text-base text-gray-600 sm:text-lg">Get in touch with our team</p>
+          <h2 className="text-3xl font-bold text-orange-500 md:text-4xl">
+            Contact Us
+          </h2>
+          <p className="mt-4 text-lg text-gray-600">
+            We would love to hear from you!
+          </p>
         </motion.div>
-        <motion.div
+
+        <motion.form
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-          className="mx-auto mt-8 max-w-md sm:mt-12"
+          transition={{ duration: 0.8 }}
+          onSubmit={handleSubmit}
+          className="space-y-6 bg-gray-100 p-8 rounded-xl shadow-lg"
         >
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Your name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input placeholder="your@email.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="message"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Message</FormLabel>
-                    <FormControl>
-                      <Textarea placeholder="Your message" className="min-h-[120px]" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button
-                type="submit"
-                className="w-full bg-orange-500 text-white hover:bg-orange-600"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? "Sending..." : "Send Message"}
-              </Button>
-            </form>
-          </Form>
-        </motion.div>
+          <div>
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              className="w-full p-3 rounded-md border border-gray-300 focus:border-orange-500 focus:ring-orange-500"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="w-full p-3 rounded-md border border-gray-300 focus:border-orange-500 focus:ring-orange-500"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="message"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Message
+            </label>
+            <textarea
+              name="message"
+              id="message"
+              value={formData.message}
+              onChange={handleChange}
+              required
+              rows={6}
+              className="w-full p-3 rounded-md border border-gray-300 focus:border-orange-500 focus:ring-orange-500"
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            className="w-full py-3 px-6 rounded-md text-white bg-orange-500 hover:bg-orange-600 transition-colors"
+          >
+            Send Message
+          </button>
+        </motion.form>
       </div>
     </section>
-  )
+  );
 }
-
