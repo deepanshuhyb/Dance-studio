@@ -107,7 +107,7 @@ export default function HomePage() {
               className="w-64 text-center"
             >
               <Image
-                src={`/images/choreographer${num}.jpg`}
+                src={`/images/image${num}.png`}
                 alt={`Choreographer ${num}`}
                 width={200}
                 height={200}
