@@ -100,7 +100,7 @@ export default function HomePage() {
           Meet Our Choreographers
         </h2>
         <div className="mt-8 flex flex-wrap justify-center gap-6">
-          {[1, 2, 3].map((num) => (
+          {[1, 7, 4].map((num) => (
             <motion.div
               key={num}
               whileHover={{ scale: 1.05 }}
@@ -132,14 +132,14 @@ export default function HomePage() {
           and dedication.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-6">
-          {[1, 2, 3].map((num) => (
+          {[1, 7, 4].map((num) => (
             <motion.div
               key={num}
               whileHover={{ scale: 1.05 }}
               className="w-64 text-center"
             >
               <Image
-                src={`/images/event${num}.jpg`}
+                src={`/images/image${num}.png`}
                 alt={`Event ${num}`}
                 width={300}
                 height={200}
